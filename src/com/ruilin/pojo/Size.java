@@ -3,12 +3,10 @@ package com.ruilin.pojo;
 public class Size {
 	private int sizeid; //尺寸大小
 	private int sizetype; //尺寸类型
-	private int goodsid; //商品编号
-	public Size(int sizeid, int sizetype, int goodsid) {
+	public Size(int sizeid, int sizetype) {
 		super();
 		this.sizeid = sizeid;
 		this.sizetype = sizetype;
-		this.goodsid = goodsid;
 	}
 	public Size() {
 		super();
@@ -25,11 +23,4 @@ public class Size {
 	public void setSizetype(int sizetype) {
 		this.sizetype = sizetype;
 	}
-	public int getGoodsid() {
-		return goodsid;
-	}
-	public void setGoodsid(int goodsid) {
-		this.goodsid = goodsid;
-	}
-	
 }
