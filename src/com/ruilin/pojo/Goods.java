@@ -13,9 +13,9 @@ public class Goods {
 	private String certificate;//商品证书
 	private int textureid;//初始材质id
 	private int imgid;//商品初始图片
-	private int headid; //主钻初始编号
+	private int diamondid; //主钻初始编好
 	public Goods(int goodsid, String goodsname, int goodsprice, int brandtypeId, int volume, int repertory, int sizeid,
-			int recentlysold, String productid, String certificate, int textureid, int imgid, int headid) {
+			int recentlysold, String productid, String certificate, int textureid, int imgid, int diamondid) {
 		super();
 		this.goodsid = goodsid;
 		this.goodsname = goodsname;
@@ -29,7 +29,7 @@ public class Goods {
 		this.certificate = certificate;
 		this.textureid = textureid;
 		this.imgid = imgid;
-		this.headid = headid;
+		this.diamondid = diamondid;
 	}
 	public Goods() {
 		super();
@@ -106,12 +106,13 @@ public class Goods {
 	public void setImgid(int imgid) {
 		this.imgid = imgid;
 	}
-	public int getHeadid() {
-		return headid;
+	public int getDiamondid() {
+		return diamondid;
 	}
-	public void setHeadid(int headid) {
-		this.headid = headid;
+	public void setDiamondid(int diamondid) {
+		this.diamondid = diamondid;
 	}
+	
 	
 	
 }

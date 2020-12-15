@@ -2,29 +2,31 @@ package com.ruilin.pojo;
 
 public class Diamond {
 	private int diamondid;//钻石编号
-	private String weight;//总钻重量
-	private String singleDrilling;//单钻重量
-	private int number;//钻石数量
-	private String neatness;//钻石净度
-	private String color;//钻石颜色
-	private String cut;//钻石切工类型
-	private int goodsid;//商品编号
-	
-	
-	public Diamond() {
-		super();
-	}
-	public Diamond(int diamondid, String weight, String singleDrilling, int number, String neatness, String color,
-			String cut, int goodsid) {
+	private String type;
+	private int goodsid;
+	private String price;
+	private String weight;
+	private String single_drilling;
+	private String number;
+	private String neatness;
+	private String color;
+	private String cut;
+	public Diamond(int diamondid, String type, int goodsid, String price, String weight, String single_drilling,
+			String number, String neatness, String color, String cut) {
 		super();
 		this.diamondid = diamondid;
+		this.type = type;
+		this.goodsid = goodsid;
+		this.price = price;
 		this.weight = weight;
-		this.singleDrilling = singleDrilling;
+		this.single_drilling = single_drilling;
 		this.number = number;
 		this.neatness = neatness;
 		this.color = color;
 		this.cut = cut;
-		this.goodsid = goodsid;
+	}
+	public Diamond() {
+		super();
 	}
 	public int getDiamondid() {
 		return diamondid;
@@ -32,22 +34,40 @@ public class Diamond {
 	public void setDiamondid(int diamondid) {
 		this.diamondid = diamondid;
 	}
+	public String getType() {
+		return type;
+	}
+	public void setType(String type) {
+		this.type = type;
+	}
+	public int getGoodsid() {
+		return goodsid;
+	}
+	public void setGoodsid(int goodsid) {
+		this.goodsid = goodsid;
+	}
+	public String getPrice() {
+		return price;
+	}
+	public void setPrice(String price) {
+		this.price = price;
+	}
 	public String getWeight() {
 		return weight;
 	}
 	public void setWeight(String weight) {
 		this.weight = weight;
 	}
-	public String getSingleDrilling() {
-		return singleDrilling;
+	public String getSingle_drilling() {
+		return single_drilling;
 	}
-	public void setSingleDrilling(String singleDrilling) {
-		this.singleDrilling = singleDrilling;
+	public void setSingle_drilling(String single_drilling) {
+		this.single_drilling = single_drilling;
 	}
-	public int getNumber() {
+	public String getNumber() {
 		return number;
 	}
-	public void setNumber(int number) {
+	public void setNumber(String number) {
 		this.number = number;
 	}
 	public String getNeatness() {
@@ -67,12 +87,6 @@ public class Diamond {
 	}
 	public void setCut(String cut) {
 		this.cut = cut;
-	}
-	public int getGoodsid() {
-		return goodsid;
-	}
-	public void setGoodsid(int goodsid) {
-		this.goodsid = goodsid;
 	}
 	
 }
