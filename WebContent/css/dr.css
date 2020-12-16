@@ -18,7 +18,7 @@
 .drchoose_ul{overflow:hidden;margin:0 auto;width:960px}
 .drchoose_ul li{float:left;cursor:pointer;background:url(../images/rp_right.jpg) no-repeat right center #f0f0f0;width:160px;text-align:center;color:#666}
 .drchoose_ul span{font-family:"微软雅黑";font-size:16px}
-.drchoose_ul .choose_hover{background:#d6aa70;color:#fff}
+.drchoose_ul .choose_hover{background:#d6aa70;color:#666666}
 .drcho_bto{background:url(../images/bt_bottom.png) no-repeat center;width:960px;height:14px;margin:0 auto}
 .search_other{width:226px;height:24px;background:url(../images/search_other.png) no-repeat center;border:none;margin-top:0}
 /*参数选项*/
