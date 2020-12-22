@@ -14,15 +14,15 @@ import com.ruilin.pojo.ClassifyGoods;
 import com.ruilin.service.list.impl.FiltrateServiceImpl;
 
 /**
- * Servlet implementation class ForeverServlet
+ * Servlet implementation class MohuServlet
  */
-public class ForeverServlet extends HttpServlet {
+public class MohuServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ForeverServlet() {
+    public MohuServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,8 +32,9 @@ public class ForeverServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String id = request.getParameter("goodsid");
 		FiltrateServiceImpl fsi = new FiltrateServiceImpl();
-		List<ClassifyGoods> list = fsi.getForever();
+		List<ClassifyGoods> list = fsi.getMohu(Integer.parseInt(id));
 		String json = JSONArray.toJSONString(list);
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();

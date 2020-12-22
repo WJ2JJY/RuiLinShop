@@ -14,15 +14,15 @@ import com.ruilin.pojo.ClassifyGoods;
 import com.ruilin.service.list.impl.FiltrateServiceImpl;
 
 /**
- * Servlet implementation class TrueServlet
+ * Servlet implementation class MoneyServlet
  */
-public class TrueServlet extends HttpServlet {
+public class MoneyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public TrueServlet() {
+    public MoneyServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,8 +32,17 @@ public class TrueServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setCharacterEncoding("utf-8");
+		String money = request.getParameter("money");
+		String type = request.getParameter("type");
+		String weight = request.getParameter("weight");
+		String selected = request.getParameter("select");
+		int mon = Integer.parseInt(money);
+		int ty = Integer.parseInt(type);
+		int wei = Integer.parseInt(weight);
+		int select = Integer.parseInt(selected);
 		FiltrateServiceImpl fsi = new FiltrateServiceImpl();
-		List<ClassifyGoods> list = fsi.getTrue();
+		 List<ClassifyGoods> list = fsi.getMoney(mon,ty,wei,select);
 		String json = JSONArray.toJSONString(list);
 		response.setContentType("application/json; charset=UTF-8");
 		PrintWriter out = response.getWriter();

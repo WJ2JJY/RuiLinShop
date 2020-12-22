@@ -6,13 +6,14 @@ import org.junit.Test;
 
 import com.ruilin.dao.list.impl.FiltrateDaoImpl;
 import com.ruilin.pojo.ClassifyGoods;
+import com.ruilin.pojo.Goods;
+import com.ruilin.utils.SendEmail;
 
 public class Demo {
 	//测试类
-	@Test
-	public void test(){
-		FiltrateDaoImpl fd = new FiltrateDaoImpl();
-		List<ClassifyGoods> list = fd.getVolume();
-		System.out.println(list.toString());
+	public static void main(String[] args) {
+		SendEmail se = new SendEmail();
+		se.getEcode("1029366496@qq.com");
+		System.out.println(se.serch);
 	}
 }

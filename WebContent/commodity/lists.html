@@ -8,6 +8,37 @@
   <script src="../js/index.js?virsion=1.3.7.2" type="text/javascript"></script>
   <script type="text/javascript" src="../js/vue.js"></script>
   <script type="text/javascript" src="../js/axios.js"></script>
+  <style>
+    .mohu{
+       position: absolute;
+       z-index: 99!important;
+       right: 11px;
+       top:445px;
+       border:2px pink solid;
+       border-top:none;
+       border-radius:0px 0px 8px 8px;
+       width: 221px;
+       background-color: white;
+       display: none;
+       height: 150px;
+    }
+    .mohu li{
+       height: 20px;
+       margin: 0px;
+       font-size: 12px;
+       line-height:0px;
+       padding-top: 5px;
+       
+    }
+    .mohu ul{
+       padding-top:20px;
+       height: 120px;
+    }
+    .mohu li:HOVER{
+       
+       color:red;
+    }
+  </style>
  </head>
  <body>
    <!--头部--> 
@@ -110,13 +141,18 @@
        <!--选项nav--> 
        <div class="drcho_top"> 
         <ul class="drchoose_ul"> 
-         <li class="choose_hover" id="ucser_all" @click="all($event)" style="color:#666666"><span>所有</span> </li> 
-         <li id="ucser_forever" @click="paris($event)"><span>DR PARIS系列</span> </li> 
-         <li id="ucser_myheart" @click="forever($event)"><span>FOREVER系列</span> </li> 
-         <li id="ucser_swear" @click="just($event)"><span>JUST YOU系列</span> </li> 
-         <li id="ucser_justyou" @click="heart($event)"><span>MY HEART系列</span> </li> 
-         <li style="background-image:none" id="ucser_truelove" @click="truelove($event)"><span>TRUE LOVE系列</span> </li> 
+         <li class="choose_hover" id="ucser_all" @click="any($event,-1)" style="color:#666666"><span>所有</span> </li> 
+         <li id="ucser_forever" @click="any($event,1)"><span>DR PARIS系列</span> </li> 
+         <li id="ucser_myheart" @click="any($event,2)"><span>FOREVER系列</span> </li> 
+         <li id="ucser_swear" @click="any($event,3)"><span>JUST YOU系列</span> </li> 
+         <li id="ucser_justyou" @click="any($event,4)"><span>MY HEART系列</span> </li> 
+         <li style="background-image:none" id="ucser_truelove" @click="any($event,5)"><span>TRUE LOVE系列</span> </li> 
         </ul> 
+        <div class="mohu">
+               <ul >
+                  <li v-for="item in listname" @click="good(item.goodsid)">{{item.goodsname}}</li>
+               </ul>
+         </div>
        </div> 
        <div class="drcho_bto"></div> 
       </div> 
@@ -125,16 +161,14 @@
       <div class="select_choose"> 
        <div class="thefirst_it"> 
         <div class="search2 search_other fr"> 
-         <input type="text" placeholder="产品名称/关键字" class="txt2" id="txtTitle" name="txtTitle" /> 
+         <input type="text" placeholder="产品名称/关键字" class="txt2" id="txtTitle" v-model="name" style="border: 2px pink solid;height: 24px;width: 225px;position: relative;top:-0.5px;left:0.5px;border-radius:8px 8px" @input="shuru($event)"/> 
          <div id="prosearch" class="icon toser2"></div> 
         </div> 
         <div class="fl"> 
          <span>价格：</span> 
-         <select id="drpListPrice" name="drpListPrice"> <option value="-1" selected="selected">不限</option> <option value="1">5000以下</option> <option value="2">5000-10000</option> <option value="3">10000-20000</option> <option value="4">20000以上</option> </select> 
+         <select id="drpListPrice" @change="price" v-model="money"> <option value="-1" selected="selected">不限</option> <option value="1">5000以下</option> <option value="2">5000-10000</option> <option value="3">10000-20000</option> <option value="4">20000以上</option> </select> 
          <span>钻石：</span> 
-         <select id="drplistzct" name="drplistzct"> <option value="-1" selected="selected">不限</option> <option value="1">10分以下</option> <option value="2">10分-30分</option> <option value="3">30分-50分</option> <option value="4">50分-1克拉</option> <option value="5">1克拉以上</option> </select> 
-         <span>材质：</span> 
-         <select id="drpListCZ" name="drpListCZ"> <option value="-1" selected="selected">不限</option> <option value="1">PT950</option> <option value="2">18K白金</option> <option value="3">18K黄金</option> <option value="4">18K玫瑰金</option> </select> 
+         <select id="drplistzct" @change="price" v-model="weight"> <option value="-1" selected="selected">不限</option> <option value="1">10分以下</option> <option value="2">10分-30分</option> <option value="3">30分-50分</option> <option value="4">50分-1克拉</option> <option value="5">1克拉以上</option> </select>
         </div> 
         <div style="display:none" id="btncz" class="choose_cz fl"> 
          <span>重 置</span> 
@@ -152,7 +186,7 @@
        <div class="thesec_it"> 
         <div class="thesec_word-left fl"> 
          <span>排序：</span> 
-         <b> <i id="i_xl">按销量</i> <i id="i_jg">按价格</i> </b> 
+         <b id="co"> <i id="i_xl" @click="xuan($event,1)">按销量</i> <i id="i_jg" @click="xuan($event,2)">按价格</i> </b> 
         </div> 
        </div> 
       </div> 
@@ -166,9 +200,9 @@
      <div class="cmain"> 
       <ul class="buyit"> 
        <!--每一个款式--> 
-       <li v-for="items in list" v-for="items in list2" style="margin-bottom: 5px"> 
+       <li v-for="items in list" style="margin-bottom: 5px"> 
         <div class="by_top" @mouseover="change($event)" @mouseleave="fuck($event)"> 
-         <a target="_blank" href="detail.html"></a> 
+         <a target="_blank" :href="getName(items.goodsname)"></a> 
          <div class="bything-one" > 
           <img width="236px" height="236" :src="['../' + items.images]" /> 
          </div> 
@@ -177,7 +211,7 @@
         </div> 
         <div class="by_bottom" > 
          <p> <a style="font-size: 15px">DR钻戒 {{items.goodsname}}&nbsp;{{items.type}}&nbsp;{{items.color}}</a></p> 
-         <p> <span style="font-size: 18px;color:#680000">￥{{items.goodsprice}}</span></p> 
+         <p> <span style="font-size: 18px;color:#680000">￥{{items.price}}</span></p> 
         </div> 
         </li> 
       </ul> 
@@ -208,9 +242,12 @@
     	 el:"#app",
     	 data:{
     		 list:[],
-    		 list2:{
-    			 name:'卫杰'
-    		 }
+    		 money:'-1',
+    		 type:'-1',
+    		 name:'',
+    		 listname:[],
+    		 weight:'-1',
+    		 select:"1"
     	 },
     	 methods:{
     		 change:function(event){
@@ -226,57 +263,80 @@
     			 var secondpath = firstpath.replace('(2)','(1)');
     			 img.src=secondpath;
     		 },
-    		 paris:function(e){
-    			 axios.get('../paris').then((ret)=>{
-    				 this.list=ret.data;
-     			});
-    			 $('.drchoose_ul li').css("background-color","#f0f0f0");
-    			 $(e.currentTarget).css("background-color","#d6aa70");
-    			 
-    		 },
-    		 forever:function(e){
-    			 axios.get('../forever').then((ret)=>{
-    				 this.list=ret.data;
-     			});
-    			 $('.drchoose_ul li').css("background-color","#f0f0f0");
+    		 any:function(e,i){
+    			 this.name="";
+    			 this.type=i;
+    			 this.price();
+    			 abc();
     			 $(e.currentTarget).css("background-color","#d6aa70");
     		 },
-    		 heart:function(e){
-    			 axios.get('../myheart').then((ret)=>{
-    				 this.list=ret.data;
-     			});
-    			 $('.drchoose_ul li').css("background-color","#f0f0f0");
-    			 $(e.currentTarget).css("background-color","#d6aa70");
+    		 price:function(){
+    			 this.name="";
+    			 axios.get('../money',{params:{
+  					money:this.money,
+  					type:this.type,
+  					weight:this.weight,
+  					select:this.select
+  				}}).then((ret)=>{
+      				this.list=ret.data;
+      			});
     		 },
-    		 truelove:function(e){
-    			 axios.get('../true').then((ret)=>{
-    				 this.list=ret.data;
-     			});
-    			 $('.drchoose_ul li').css("background-color","#f0f0f0");
-    			 $(e.currentTarget).css("background-color","#d6aa70");
+    		 shuru:function(e){
+    			 axios.get('../getname',{params:{
+  					name:this.name
+  				}}).then((ret)=>{
+       				this.listname=ret.data;
+       			 if(this.listname==null||this.listname.length==0||this.name==""){
+    				 $('.mohu').hide();
+    				 $(e.currentTarget).css("border","none")
+    				  $(e.currentTarget).css("border","2px pink solid")
+    				   $(e.currentTarget).css("border-radius","8px 8px 8px 8px")
+    			 }else {
+    				 $(e.currentTarget).css("border-radius","8px 8px 0px 0px")
+    				 $('.mohu').css("border","2px pink solid");
+    				 $('.mohu').css("border-top","none");
+    				 $(e.currentTarget).css("border-bottom","none")
+        			 $('.mohu').show();
+				}
+       			});
+    			
     		 },
-    		 just:function(e){
-    			 axios.get('../just').then((ret)=>{
-    				 this.list=ret.data;
-     			});
-    			 $('.drchoose_ul li').css("background-color","#f0f0f0");
-    			 $(e.currentTarget).css("background-color","#d6aa70");
+    		 good:function(id){
+    			 axios.get('../mohu',{params:{
+   					goodsid:id
+   				}}).then((ret)=>{
+       				this.list=ret.data;
+       				this.name=this.list[0].goodsname;
+       				$('.mohu').hide();
+       				$('#txtTitle').css("border-radius","8px 8px 8px 8px")
+       			});
     		 },
-    		 all:function(e){
-    			 axios.get('../filtrate').then((ret)=>{
-     				this.list=ret.data;
-     			});
-    			 $('.drchoose_ul li').css("background-color","#f0f0f0");
-    			 $(e.currentTarget).css("background-color","#d6aa70");
+    		 xuan:function(e,j){
+    			 $("#co i").css("color","black")
+    			 $(e.currentTarget).css("color","red");
+    			 this.select=j;
+    			 this.price();
+    		 }
+    		 ,
+    		 getName:function(name){
+    			 return '../sale?goodsname='+name;
     		 }
     	 },
     	 created:function(){
     			//var that = this;
+    			$("#co i:eq(0)").css("color","red")
     			axios.get('../filtrate').then((ret)=>{
     				this.list=ret.data;
     			});
     		}
       });
+      
+      function abc(){
+    	  $('.drchoose_ul li').css("background-color","#f0f0f0");
+			
+			 $('.thefirst_it').show();
+			 $('.thesec_it').show();
+      }
       
      
 </script>

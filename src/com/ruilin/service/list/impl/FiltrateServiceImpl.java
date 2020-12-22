@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.ruilin.dao.list.impl.FiltrateDaoImpl;
 import com.ruilin.pojo.ClassifyGoods;
+import com.ruilin.pojo.Goods;
 import com.ruilin.service.list.FiltrateService;
 
 public class FiltrateServiceImpl implements FiltrateService{
@@ -14,29 +15,25 @@ public class FiltrateServiceImpl implements FiltrateService{
 		return fdi.getVolume();
 	}
 	@Override
-	public List<ClassifyGoods> getParis() {
+	public List<ClassifyGoods> getAnyType(int type) {
 		// TODO Auto-generated method stub
-		return fdi.getParis();
+			return fdi.getAnyType(type);
 	}
 	@Override
-	public List<ClassifyGoods> getForever() {
+	public List<Goods> getName(String name) {
 		// TODO Auto-generated method stub
-		return fdi.getForever();
+		return fdi.getName(name);
 	}
 	@Override
-	public List<ClassifyGoods> getJust() {
+	public List<ClassifyGoods> getMohu(int id) {
 		// TODO Auto-generated method stub
-		return fdi.getJust();
+		return fdi.getMohu(id);
 	}
 	@Override
-	public List<ClassifyGoods> getMyheart() {
+	public List<ClassifyGoods> getMoney(int money, int type, int weight, int select) {
 		// TODO Auto-generated method stub
-		return fdi.getMyheart();
+		return fdi.getMoney(money,type,weight,select);
 	}
-	@Override
-	public List<ClassifyGoods> getTrue() {
-		// TODO Auto-generated method stub
-		return fdi.getTrue();
-	}
+
 
 }
